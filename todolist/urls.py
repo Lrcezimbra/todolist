@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from todolist.core.views import ToDoFormSetView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', ToDoFormSetView.as_view()),
 ]

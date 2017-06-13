@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from extra_views import ModelFormSetView
+from todolist.core.models import ToDo
 
-# Create your views here.
+class ToDoFormSetView(ModelFormSetView):
+    template_name = 'todo.html'
+    model = ToDo
+    fields = ('title', 'order', 'done')
