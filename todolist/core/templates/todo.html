@@ -1,17 +1,73 @@
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>To Do List</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script
+	    src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		    crossorigin="anonymous"></script>
+	<script
+	  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+	    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+		  crossorigin="anonymous"></script>
+  <style>
+    input[type="text"] {
+      border-radius: 0;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+    }
+    input[type="text"]:focus {
+      box-shadow: none;
+    }
+  </style>
+  <script>
+  	$(function() {
+		$('#form').sortable({helper: "clone", stop: function () {
+			$('[id*="-order"]').each(function(idx) {
+				$(this).val(idx + 1);
+			});
+		}});
+	})
+  </script>
 </head>
 <body>
-  <form action="." method="POST">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset %}
-      {{ form.as_table }}
-    {% endfor %}
-    <input type="submit">
-  </form>
+	<div class="container">
+		<form action="." method="POST" id="form">
+			{% csrf_token %}
+			{{ form.non_field_errors }}
+			{{ formset.management_form }}
+
+			{% for form in formset %}
+			<div class=form-inline>
+				{{ form.id.errors }}
+				{{ form.id.as_hidden }}
+
+				{{ form.order.errors }}
+				{{ form.order.as_hidden }}
+
+				<div class="form-group">
+					<span class="glyphicon glyphicon-move"></span>
+				</div>
+
+				<div class="form-group">
+					{{ form.done.errors }}
+					{% render_field form.done class+='form-control' %}
+				</div>
+
+				<div class="form-group">
+					<label class="sr-only" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+					{{ form.title.errors }}
+					{% render_field form.title class+="form-control" %}
+				</div>
+			</div>
+			{% endfor %}
+
+			<input type="submit" value="Salvar" class="btn btn-primary pull-right">
+		</form>
+	</div>
 </body>
 </html>

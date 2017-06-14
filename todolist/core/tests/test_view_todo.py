@@ -1,7 +1,13 @@
 from django.test import TestCase
+from todolist.core.models import ToDo
 
 class ToDoViewTest(TestCase):
     def setUp(self):
+        for i in range(2):
+            ToDo.objects.create(
+                title='Create tests for ToDo project',
+                order=i,
+            )
         self.response = self.client.get('/')
 
     def test_get(self):

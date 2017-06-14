@@ -4,4 +4,5 @@ from todolist.core.models import ToDo
 class ToDoFormSetView(ModelFormSetView):
     template_name = 'todo.html'
     model = ToDo
-    fields = ('title', 'order', 'done')
+    fields = ('done', 'title', 'order')
+    extra = 0
