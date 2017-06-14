@@ -13,6 +13,7 @@
 	  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
 	    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
 		  crossorigin="anonymous"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
   <style>
     input[type="text"] {
       border-radius: 0;
@@ -25,13 +26,20 @@
     }
   </style>
   <script>
-  	$(function() {
-		$('#form').sortable({helper: "clone", stop: function () {
-			$('[id*="-order"]').each(function(idx) {
-				$(this).val(idx + 1);
-			});
-		}});
-	})
+	  function update_order(){
+		$('[id*="-order"]').each(function(idx) {
+			$(this).val(idx + 1);
+		});
+	  }
+
+	  $(function() {
+		  $('#form').sortable({helper: "clone", update: update_order});
+		  $('#form .form-inline').formset({
+			  added: update_order,
+			  deleteText: '<span class="glyphicon glyphicon-remove"></span>',
+			  addText: '<span class="glyphicon glyphicon-plus"></span> Adicionar Item'
+		  });
+	  })
   </script>
 </head>
 <body>
@@ -63,6 +71,7 @@
 					{{ form.title.errors }}
 					{% render_field form.title class+="form-control" %}
 				</div>
+				{{ form.DELETE }}
 			</div>
 			{% endfor %}
 

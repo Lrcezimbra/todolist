@@ -23,8 +23,8 @@ class ToDoViewTest(TestCase):
     def test_html(self):
         '''HTML must contain input tags'''
         tags = (('<form', 1),
-                ('<input', 14),
-                ('type="text"', 2),
+                ('<input', 16),
+                ('type="text"', 4),
                 ('type="submit"', 1),
                 ('name="form-TOTAL_FORMS"', 1),
                 ('name="form-INITIAL_FORMS"', 1),

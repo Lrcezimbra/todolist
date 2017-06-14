@@ -6,3 +6,4 @@ class ToDoFormSetView(ModelFormSetView):
     model = ToDo
     fields = ('done', 'title', 'order')
     extra = 0
+    can_delete = True
