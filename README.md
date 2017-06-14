@@ -1,4 +1,4 @@
-## Come desenvolver?
+## Como desenvolver
 
 1. Clone o repositório
 2. Crie um virtualenv com o Python 3
@@ -15,6 +15,17 @@ source .venv/bin/activate
 pip install -r requirements.txt
 cp contrib/env-sample .env
 python manage.py test
+```
+
+## Como rodar o projeto
+
+1. Executar os passos do Como desenvolver 
+2. Rodar as migrações
+3. Rodar o servidor
+
+```console
+python manage.py migrate
+python manage.py runserver
 ```
 
 ## Como fazer o deploy
