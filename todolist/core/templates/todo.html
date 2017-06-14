@@ -35,9 +35,19 @@
 	  $(function() {
 		  $('#form').sortable({helper: "clone", update: update_order});
 		  $('#form .form-inline').formset({
-			  added: update_order,
 			  deleteText: '<span class="glyphicon glyphicon-remove"></span>',
-			  addText: '<span class="glyphicon glyphicon-plus"></span> Adicionar Item'
+			  addText: '<span class="glyphicon glyphicon-plus"></span> Adicionar Item',
+			  added: function(row){
+				  update_order();
+				  title = row.find('[name*="-title"]')
+				  title.focus()
+			  }
+		  });
+		  $(document).keypress(function(e) {
+		      if(e.which == 13) {
+				  event.preventDefault();
+				  $('.add-row').click();
+			  }
 		  });
 	  })
   </script>
@@ -46,7 +56,6 @@
 	<div class="container">
 		<form action="." method="POST" id="form">
 			{% csrf_token %}
-			{{ form.non_field_errors }}
 			{{ formset.management_form }}
 
 			{% for form in formset %}
@@ -69,7 +78,7 @@
 				<div class="form-group">
 					<label class="sr-only" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
 					{{ form.title.errors }}
-					{% render_field form.title class+="form-control" %}
+					{% render_field form.title required="required" class+="form-control" %}
 				</div>
 				{{ form.DELETE }}
 			</div>
