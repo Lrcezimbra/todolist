@@ -33,6 +33,7 @@
 	  }
 
 	  $(function() {
+		  update_order()
 		  $('#form').sortable({helper: "clone", update: update_order});
 		  $('#form .form-inline').formset({
 			  deleteText: '<span class="glyphicon glyphicon-remove"></span>',
@@ -80,7 +81,7 @@
 					{{ form.title.errors }}
 					{% render_field form.title required="required" class+="form-control" %}
 				</div>
-				{{ form.DELETE }}
+				{% if form.instance.pk %}{{ form.DELETE }}{% endif %}
 			</div>
 			{% endfor %}
 

@@ -5,5 +5,5 @@ class ToDoFormSetView(ModelFormSetView):
     template_name = 'todo.html'
     model = ToDo
     fields = ('done', 'title', 'order')
-    extra = 0
+    extra = 1
     can_delete = True
