@@ -18,3 +18,7 @@ class ToDoTest(TestCase):
             order=1,
         )
         self.assertFalse(todo.done)
+
+    def test_ordering(self):
+        expected_ordering = ('order',)
+        self.assertEqual(expected_ordering, self.obj._meta.ordering)
